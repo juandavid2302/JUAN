@@ -13,10 +13,3 @@ if salario<=smmv*2:
 elif salario>smmv*2:
     print("no tiene subsidio de transporte")
     print("salario neto a recibir:" ,sueldo_devengado)
-
-
-
-
-
-
-    
