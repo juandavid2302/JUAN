@@ -1,13 +1,12 @@
-clase_ejecutiva = [False]*50
-clase_turista = [False]*50
+clase_ejecutiva = [False]*3
+clase_turista = [False]*3
 
 numero_asientos=len(clase_ejecutiva) + len(clase_turista)
 
 def leerMenu():
     print("""Escoja la opcion que va a realizar\n
         a: Reservar asientos del vuelo 
-        b: Cancelar reserva
-        c: Buscar silla""")
+        b: Cancelar reserva""")
     opc=input('Introduzca opcion que desea realizar: ')
     opc = opc.lower()
     return opc
@@ -41,7 +40,7 @@ def hacer_reservas():
         mostrarAsientos(False)
         usuario=int(input('Digite el puesto que desea reservar: '))
         ind = usuario -1
-        if ind > 99 or ind < 0:
+        if ind > 5 or ind < 0:
             print('Las sillas del avion van del 1 al 100')
             
         elif ind < len (clase_ejecutiva):
@@ -64,44 +63,38 @@ def hacer_reservas():
                 print(f'La silla {usuario} Ya esta reservada')
 
             print('Se completaron las reservas para este vuelo')
-            
+ok=False           
 def cancelar_reservados():
     mostrarAsientos(True)
-    usuario=int(input('Digite el puesto que desea cancelar: '))
-    inde = usuario -1
-    if inde > 99 or inde < 0:
-        print('Las sillas del avion van del 1 al 100')
+    while not ok:
+        try:
+            usuario=int(input('Digite el puesto que desea cancelar: '))
+            ok=True
+            inde = usuario -1
+            if inde > 9 or inde < 0:
+                print('Las sillas del avion van del 1 al 100')
             
 
-    elif inde < len (clase_ejecutiva):
-        if  clase_ejecutiva[inde]:
-            clase_ejecutiva[inde]=False 
-            print('Su cancelacion fue exitosa')
-                
+            elif inde < len (clase_ejecutiva):
+                if  clase_ejecutiva[inde]:
+                clase_ejecutiva[inde]=False 
+                print('Su cancelacion fue exitosa')
+                    
+
+            else:
+                print(f'La silla {usuario} No esta reservada')
 
         else:
-            print(f'La silla {usuario} No esta reservada')
+            inde -= len(clase_ejecutiva)
+            if  clase_turista[inde]:
+                clase_turista[inde]=False
+                print('Su cancelacion fue exitosa')
+                    
 
-    else:
-        inde -= len(clase_ejecutiva)
-        if  clase_turista[inde]:
-            clase_turista[inde]=False
-            print('Su cancelacion fue exitosa')
-                
-
-        else:
-            print(f'La silla {usuario} No esta reservada')
+            else:
+                print(f'La silla {usuario} No esta reservada')
             
-def buscar_silla():
-    mostrarAsientos(True)
-    usuario=int(input('Digite la silla que desea buscar: '))
-    if usuario >= 50 and usuario <= 100:
-        print("la silla es de clase turista")
-    elif usuario < 50:
-        print("la silla es de clase ejecutiva")
-    elif usuario >100:
-        print("la silla no existe")
-        
+
     
 
 #Programa Principal
@@ -115,5 +108,4 @@ while True:
         hacer_reservas()
     elif opc == 'b':
         cancelar_reservados()
-    elif opc == 'c':
-        buscar_silla()
+    
